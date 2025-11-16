@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  web:
+    # This service name matches the one defined in the base docker-compose.yml
+    # You do not need to repeat image/build details; override only what you care about.
+    ports:
+      # Host:Container
+      - "3333:80"   # access Canvas at http://localhost:3000/
+    environment:
+      # Ensure the domain used by Canvas matches your local setup
+      CANVAS_LMS_DOMAIN: "canvas.localhost"
+
+  postgres:
+    environment:
+      POSTGRES_DB: "canvas"
+      POSTGRES_USER: "canvas"
+      POSTGRES_PASSWORD: "canvas"
+
+  redis:
+    # Default redis config is fine for local use; this is here just to show override pattern.
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+
